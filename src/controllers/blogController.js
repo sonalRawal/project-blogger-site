@@ -133,40 +133,6 @@ const getBlogs = async function (req, res) {
         res.status(500).send({ status: false, message: error.message });
     }
 }
-//     try {
-//         let validId = req["validToken"]["authorId"]
-
-//blogs = await blogModel.find({ isDeleted: false, isPublished: true })
-//         // console.log(blogs)
-//         let authorId = req.query.authorid
-//         let category = req.query.category
-//         let tags = req.query.tags
-//         let subcategory = req.query.subcategory
-//         if (validId == authorId) {
-//             if (blogs) {
-//let check = await blogs.find({ $or: [{ authorId: authorId }, { tags: [tags] }, { category: category }, { subcategory: [subcategory] }] });
-//console.log(check)
-//  if (check) {
-//      return res.status(200).send({ status: true, data: check })
-// } 
-//               else {
-//                     res.status(401).send({ status: false, msg: "invalid details" })
-//                 }
-
-
-//             } else {
-//                 res.status(400).send({ status: false, msg: "invalid blog" })
-//             }
-//         } else {
-//             res.status(401).send({ status: false, msg: "invalid id" })
-//         }
-//     } 
-//     catch (err) {
-//         res.status(500).send({ status: false, message: err.message });
-
-//     }
-// }
-
 
 // update blog
 
@@ -224,10 +190,8 @@ const updateBlog = async function (req, res) {
         }
 
         if (isPublished !== undefined) {
-            if (!Object.prototype.hasOwnProperty.call(updatedBlogData, '$set')) updatedBlogData['$set'] = {}
-
-            updatedBlogData['$set']['isPublished'] = isPublished
-            updatedBlogData['$set']['publishedAt'] = isPublished ? new Date() : null
+            updatedBlogData['isPublished'] = isPublished
+            updatedBlogData['publishedAt'] = isPublished ? new Date() : null
         }
         if (tags) {
             updatedBlogData['$addToSet']['tags'] = { $each: [...tags] }
@@ -240,18 +204,7 @@ const updateBlog = async function (req, res) {
 
         const updatedBlog = await blogModel.findOneAndUpdate({ _id: blogId }, updatedBlogData, { new: true })
 
-        res.status(200).send({ status: true, message: 'Blog updated successfully', data: updatedBlog });
-
-        // if (validId == authorId) {
-        //     const updatedBlog = await blogModel.findOneAndUpdate({ _id: blogId, isdeleted: false }, {
-        //         title: title, body: body, isPublished: true, publishedAt: Date.now(),
-        //         $push: { tags: tags }, $push: { subcategory: subcategory }
-        //     }, { new: true })
-
-        //     return res.status(200).send({ status: true, message: 'Blog updated successfully', data: updatedBlog });
-        // } else {
-        //     return res.status(400).send({ status: false, msg: "invalid Id" })
-        // }
+        res.status(200).send({ status: true, message: 'Blog updated successfully', data: updatedBlog });ंं
     } catch (err) {
         res.status(500).send({ status: false, message: err.message });
 
