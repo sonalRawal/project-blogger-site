@@ -22,7 +22,7 @@ const authorSchema = new mongoose.Schema({
         trim: true,
         lowercase: true,
         unique: true,
-        required: 'Email address is required',
+        required:true ,
         validate: {
             validator: function (email) {
                 return /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email)
@@ -32,7 +32,7 @@ const authorSchema = new mongoose.Schema({
     password: {
         type: String,
         trim: true,
-        required: 'Password is required'
+        required: true
     }
 })
 module.exports = mongoose.model('Author', authorSchema)

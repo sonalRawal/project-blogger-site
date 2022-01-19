@@ -13,7 +13,8 @@ const authenticate = function (req, res, next) {
             console.log(decodedToken,"decodedtoken")
 
             if (decodedToken) {
-                   req["validToken"] = decodedToken
+                   req["authorId"] = decodedToken.authorId
+                   
                 next();
             } else {
                 res.status(401).send({ status: false, message: "The authentication token is invalid" });

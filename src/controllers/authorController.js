@@ -120,29 +120,10 @@ const createAuthor = async function (req, res) {
             const token = await jwt.sign({ authorId: author._id},'radium-secret')
 
             res.header('x-api-key', token);
-            res.status(200).send({ status: true, message: `Author login successfull`, data: { token } });
+            res.status(200).send({ status: true, message: `Author login successfull`, data: {authorId: author._id,token:token } });
         } catch (error) {
             res.status(500).send({ status: false, message: error.message });
         }
-
-        //   let email = req.body.email
-        //   let password = req.body.password
-
-        //   if (email && password) {
-        //     let user = await AuthorModel.findOne({ email: email, password: password })
-
-        //     if (user) {
-        //       let payload = { authorId: user["_id"] }
-        //       var token = jwt.sign(payload, "radium-secret");
-        //       res.send({ status: true, data: user, token: token })
-        //     } else {
-        //       res.send({ message: 'email or password are invalid or user is deleted' })
-        //     }
-        //   } else {
-        //     res.send({ msg: "email and password are not given" })
-        //   }
-
-        // }
 }
 module.exports = { createAuthor, login }
 
